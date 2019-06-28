@@ -112,7 +112,7 @@ add_action( 'customize_register', 'espi_cutomizer' );
 
 function espi_indicator(){
 	$indicator_progress = '<div id="espi-indicator-progress"></div>';
-	echo esc_html($indicator_progress);
+	echo $indicator_progress;
 }
 add_action( 'wp_body_open', 'espi_indicator' );
 
