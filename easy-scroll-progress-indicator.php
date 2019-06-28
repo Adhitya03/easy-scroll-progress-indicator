@@ -3,10 +3,10 @@
 Plugin Name: Easy Scroll Progress Indicator
 Plugin URI:  https://www.adhityar.com/plugins/easy-scroll-progress-indicator
 Description: Reading page scroll progress indicator bar
-Version:     1.0.0
+Version:     1.0.1
 Author:      Adhitya
 Author URI:  https://profile.wordpress.org/adhitya03
-Text Domain: uab
+Text Domain: espi
 License:     GPL2
 
 Easy Scroll Progress Indicator is free software: you can redistribute it and/or modify
@@ -112,15 +112,14 @@ add_action( 'customize_register', 'espi_cutomizer' );
 
 function espi_indicator(){
 	$indicator_progress = '<div id="espi-indicator-progress"></div>';
-	echo $indicator_progress;
+	echo esc_html($indicator_progress);
 }
 add_action( 'wp_body_open', 'espi_indicator' );
 
 function espi_indicator_style(){
-
 	$espi_background_color = esc_html( get_theme_mod('espi-background-color-setting') );
 	$espi_size = esc_html( get_theme_mod('espi-size-setting') );
-	$espi_position = esc_html(get_theme_mod('espi-position-setting'));
+	$espi_position = get_theme_mod('espi-position-setting');
 	if( $espi_position == 'top' ){
 		$espi_horizontal_position = 'top: 0;';
 		$espi_vertical_position = 'left: 0;';
@@ -144,17 +143,16 @@ function espi_indicator_style(){
 	wp_enqueue_style( 'espi_indicator_style' );
 	wp_add_inline_style( 'espi_indicator_style', $espi_style );
 
-	$espi_script = "$(window).scroll(function(){
-        var scroll = $(window).scrollTop(),
-            dh = $(document).height(),
-            wh = $(document).width();
+	$espi_script = "jQuery(window).scroll(function(){
+        var scroll = jQuery(window).scrollTop(),
+            dh = jQuery(document).height(),
+            wh = jQuery(document).width();
         value = ( scroll / (dh-wh)) * 100;
-        $('#espi-indicator-progress').css( '$espi_WidthorHeight' , value + '%')
+        jQuery('#espi-indicator-progress').css( '$espi_WidthorHeight' , value + '%')
     })";
 
-	wp_enqueue_script( 'espi_jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js', '', '3.4.1', true);
-	wp_register_script( 'espi_indicator_script', false, '', '1.0', true );
-	wp_enqueue_script( 'espi_indicator_script');
+	wp_register_script( 'espi_indicator_script', false);
+	wp_enqueue_script( 'espi_indicator_script', false, array('jquery'), '1.0.0', true );
 	wp_add_inline_script( 'espi_indicator_script', $espi_script);
 }
 add_action( 'wp_enqueue_scripts', 'espi_indicator_style' );

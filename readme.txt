@@ -39,10 +39,18 @@ This plugin use `wp_body_open()`, make sure that you use Wordpress minium 5.2, i
 
 == Changelog ==
 
+= 1.0.1 =
+* Released: June 28, 2019
+* Remove external jQuery and use jQuery file that WordPress already includes.
+* Escape css value from customizer
+
 = 1.0.0 =
 * Released: June 24, 2019
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* This version fixes a security related bug. Upgrade immediately.
 
 = 1.0.0 =
 * Plugin release
